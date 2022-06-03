@@ -1,7 +1,6 @@
-import pandas,os,csv,numpy
+import pandas,os,csv,numpy #the required modules to run the code (PS. you can install these modules by runing the commands[pip install "module_name"] but you have to make sure you have pip installed on your system first)
 
 data = pandas.DataFrame(columns=["Student's ID","Name","Midterm Grade","Classwork Grad"]) # creating the headers for the data file with the columns for the requested variables
-# data.loc[:, ~data.columns.str.contains('Unnamed^')]
 
 if os.path.exists("./data.csv") ==False: # checking the data file already exist on the current directory or not
     data.to_csv("./data.csv") #crating the csv data file in case it doesn't exist
@@ -20,31 +19,30 @@ print("""1-Show Data
 
 user = input("Choose a number that determine one of the options above please:") # getting the user input
 
-fileRead = open("./data.csv",newline="")
+DataFile = open("./data.csv",newline="") #accessing the data file and store it's content in a variable
 
-if user=="1":
-    # reader = csv.reader(fileRead)
-    # for row in reader:
-    #     print(row)
-    print(pandas.read_csv(fileRead))
-elif user=="2":
-    total_students = len(pandas.read_csv(fileRead))
-    print(f"Number of students is {total_students}")
-elif user=="3":
+if user=="1":# setting a condition when the user choose 1
+    print(pandas.read_csv(DataFile)) #showing all the data
 
-    next(csv.reader(fileRead))
+elif user=="2":#setting a condition when the user choose 2
+    total_students = len(pandas.read_csv(DataFile)) #getting the number of students in the file based on the number of rows
+    print(f"Number of students is {total_students}") #printing out the number of students
+
+elif user=="3":#setting a condition when the user choose 3
+
+    next(csv.reader(DataFile))
     scoresL = []
-    for c in csv.reader(fileRead):
-        scores =int(c[3])+ int(c[4]) 
+    for c in csv.reader(DataFile):
+        scores =float(c[3])+ float(c[4]) 
         
         # print(int(row[3])+ int(row[4]))
         scoresL.append(scores)
 
     df = pandas.read_csv("./data.csv")
     df["Final scores"] = scoresL
-    df.to_csv("Scores.csv")
+    df.to_csv("data.csv")
     # print(scoresL)
-    newFile = open("./Scores.csv",newline="")
+    newFile = open("./data.csv",newline="")
     for i in csv.reader(newFile):
         print(i[3]," ",i[6])
     # print(pandas.read_csv(newFile , index_col=0))
@@ -100,5 +98,16 @@ if user=="6":
             print(c[3]," ", c[6])
 
 if user=="7":
-    
+    word = input("Enter the full name or at leasst the first 2 letters of the student's name: ").lower()
+    next(csv.reader(gradingF))
 
+    for row in csv.reader(gradingF):
+
+        if word == str(list(row[3])[0]+list(row[3])[1]).lower():
+            print(row)
+        if word == row[3].lower():
+            print (row)
+
+if user=="8":
+    print("Tnahks for using our grading system..")
+    exit()

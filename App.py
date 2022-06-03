@@ -1,6 +1,3 @@
-from ctypes.wintypes import FLOAT
-from platform import uname
-from tokenize import Ignore
 import pandas,os,csv,numpy #the required modules to run the code (PS. you can install these modules by running the commands[pip install "module_name"] but you have to make sure you have pip installed on your system first)
 
 data = pandas.DataFrame(columns=["Student's ID","Name","Midterm Grade","Classwork Grad"]) # creating the headers for the data file with the columns for the requested variables
@@ -11,9 +8,9 @@ if os.path.exists("./data.csv") ==False: # checking the data file already exist 
 
 print("***Welcome to our grading system****\n") #welcoming message
 
-print("""1-Show Data
+print("""1-Show student's Data
 \n2-Number of students
-\n3-Compute and final scores
+\n3-Compute and show final scores
 \n4-compute and show student's grades
 \n5-Overall statistics
 \n6-Show Grade A students only
@@ -108,7 +105,7 @@ if user=="6":#setting a condition if the user choose 6
 
 
 if user=="7":#setting a condition if the user choose 7
-    word = input("Enter the full name or at least the first 2 letters of the student's name: ").lower() #getting the user input to use it in search
+    word = input("*********\nEnter the full name or at least the first 2 letters of the student's name: ").lower() #getting the user input to use it in search
     next(csv.reader(gradingF))
 
     for row in csv.reader(gradingF): #iterating over the values of the file to get the all the students names

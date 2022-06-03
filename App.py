@@ -5,15 +5,8 @@ data = pandas.DataFrame(columns=["Student's ID","Name","Midterm Grade","Classwor
 
 if os.path.exists("./data.csv") ==False: # checking the data file already exist on the current directory or not
     data.to_csv("./data.csv") #crating the csv data file in case it doesn't exist
-# data.rename({"Unnamed: 0":"a"}, axis="columns", inplace=True)
 
-#         # Then, drop the column as usual.
 
-# data.drop(["a"], axis=1, inplace=True)
-
-    # print("created") 
-# data.columns.str.match("Unnamed")
-# data.loc[:,~data.columns.str.match("Unnamed")]
 print("***Pleas choose one of the following options****\n") #welcoming message
 
 print("""1-Show Data
@@ -49,17 +42,38 @@ elif user=="3":
 
     df = pandas.read_csv("./data.csv")
     df["Final scores"] = scoresL
-    df.to_csv("newCSV.csv")
+    df.to_csv("Scores.csv")
     # print(scoresL)
-    newFile = open("./newCSV.csv",newline="")
+    newFile = open("./Scores.csv",newline="")
     for i in csv.reader(newFile):
         print(i[3]," ",i[6])
     # print(pandas.read_csv(newFile , index_col=0))
 
     # print(pandas.read_csv(newFile))
-
-elif user=="4":
-    next(csv.reader(fileRead))
+newFile = open("./newCSV.csv",newline="")
+if user=="4":
+    next(csv.reader(newFile))
     Grades = []
-    for c in csv.reader(fileRead):
-        print()
+    grade = ""
+    for c in csv.reader(newFile):
+        if 100>=int(c[5])>=90:
+            grade = "A"
+            Grades.append(grade)
+        elif 90>=int(c[5])>=75:
+            grade="B"
+            Grades.append(grade)
+        elif 75>=int(c[5])>=60:
+            grade="C"
+            Grades.append(grade)
+        elif 60>=int(c[5])>=50:
+            grade="D"
+            Grades.append(grade)
+        else:
+            grade="F"
+            Grades.append(grade)
+    df = pandas.read_csv("./data.csv")
+    df["Grades"] = Grades
+    df.to_csv("Grading.csv")
+    gradingF = open("./Grading.csv",newline="")
+    for i in csv.reader(gradingF):
+        print(i[2]," ",i[3]," ",i[6])

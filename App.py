@@ -1,4 +1,4 @@
-import pandas,os,csv
+import pandas,os,csv,numpy
 
 data = pandas.DataFrame(columns=["Student's ID","Name","Midterm Grade","Classwork Grad"]) # creating the headers for the data file with the columns for the requested variables
 # data.loc[:, ~data.columns.str.contains('Unnamed^')]
@@ -18,7 +18,7 @@ print("""1-Show Data
 \n7-Search by student's name
 \n8-Exit""") #the requsetd options
 
-user = input("Choose a number that determine one of the options above please:")
+user = input("Choose a number that determine one of the options above please:") # getting the user input
 
 fileRead = open("./data.csv",newline="")
 
@@ -77,3 +77,28 @@ if user=="4":
     gradingF = open("./Grading.csv",newline="")
     for i in csv.reader(gradingF):
         print(i[2]," ",i[3]," ",i[6])
+if user=="5":
+    next(csv.reader(newFile))
+
+    score_values = []
+
+    for c in csv.reader(newFile):
+        score_values.append(int(c[4]))
+
+    print(f"""The Maximum Score is:{max(score_values)}\n
+    Minimum score is:{min(score_values)}\n
+    Scores Average is:{numpy.array(score_values).mean()}\n
+    Standard deviation is :{numpy.array(score_values).std()}\n
+    Scores variance is :{sum((x-numpy.array(score_values).mean())**2 for x in score_values) / len(score_values)} """)
+
+gradingF = open("./Grading.csv",newline="")
+
+if user=="6":
+    next(csv.reader(newFile))
+    for c in csv.reader(gradingF):
+        if c[6]=="A":
+            print(c[3]," ", c[6])
+
+if user=="7":
+    
+
